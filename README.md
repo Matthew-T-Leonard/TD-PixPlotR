@@ -30,7 +30,8 @@ The user should work wholly within main.R, vol_write.R and vol_perc_pix.R just s
 PS1_aligned <- align_phase_volumes("E:\\2024_MESc_Matthew_Leonard\\pseudosections\\PS1\\_DomMap100\\vol")
 write.csv(PS1_aligned, "PS1_aligned.csv", row.names = FALSE)
 ```
-  Edit that code to point to the file location of your vol_ folder, change the variable name to something suitable, and adjust the csv name as needed. A nice side effect of this is you now have a handy csv with   all your vol data per phase, that you can import into excel if you wish. Write this out as many times as you have samples.
+
+     Edit that code to point to the file location of your vol_ folder, change the variable name to something suitable, and adjust the csv name as needed. A nice side effect of this is you now have a handy csv        with all your vol data per phase, that you can import into excel if you wish. Write this out as many times as you have samples.
 
 3. Adjust the next line to then read in the csvs like so:
 
@@ -47,7 +48,7 @@ PS1_column_names <- colnames(PS1_volperc)
 PS1all_phases <- PS1column_names[!grepl("Index|solids|tot|^perc", PS1column_names)]
 ```
 
-  They are just setting up a list of every single phase within the sample, which I find extremely handy. The others don't need to be changed, unless you're using a T-D database with some weird phases - you may    want to add those to the mineral groups.
+        They are just setting up a list of every single phase within the sample, which I find extremely handy. The others don't need to be changed, unless you're using a T-D database with some weird phases -            you may want to add those to the mineral groups.
 
 6. Included also are some example usages of the program. There are two functions - one_plot and mult_plots which will produce one plot or multiple plots respectively. Comment out or delete these examples before you run it!
 
@@ -70,7 +71,7 @@ This is a simple TRUE or FALSE variable. If you don't enter a value it will defa
 ### scale_min
 Takes a value to set the minimum point of the scale, with autoscale enabled this value is ignored. By default it is set to 0 (%), write scale_min = X where X = some number less than scale_max.
 ### scale_max
-Takes a value to set the maximum point of the scale, with autoscale enabled this value is ignored. BY default it is set to 100 (%), write scale_max = X where X = some number greater than scale_min.
+Takes a value to set the maximum point of the scale, with autoscale enabled this value is ignored. By default it is set to 100 (%), write scale_max = X where X = some number greater than scale_min.
 ### alpha
 Enabling alpha will cause 0 values to be set to transparent. By default it is set to FALSE, write alpha = TRUE to enable. I find enabling alpha makes the plots much more readable.
 
@@ -78,8 +79,10 @@ Enabling alpha will cause 0 values to be set to transparent. By default it is se
 ```
 #just a plot of ab, with a custom scale.
 one_plot(pixmap_size, PS1_volperc, "ab", "C:\\Users\\Matthew\\Desktop\\TestFolder\\ab_plot.svg", scaleMin = 10, scaleMax = 90)
+
 #a plot of ky + sill using autoscaling.
 one_plot(pixmap_size, PS1_volperc, c("ky", "sill"), "C:/Users/Matthew/Desktop/TestFolder/ky_sill_plot.svg", autoscale = TRUE)
+
 #a plot using the oxides preset (haem + ilm + mag + usp) with alpha enabled.
 one_plot(pixmap_size, PS1_volperc, oxides, "C:\\Users\\Matthew\\Desktop\\TestFolder\\oxides_plot.svg", autoscale = TRUE, alpha = TRUE)
 ```
@@ -100,12 +103,16 @@ In mult_plots, the values for scale_min and scale_max will be applied to every s
 ```
 #two plots, one of an and one of ab
 mult_plots(pixmap_size, PS1_volperc, c("an", "ab"), "C:/Users/Matthew/Desktop/TestFolder/mults", autoscale = TRUE, alpha = TRUE)
+
 #one plot per bio phase, if it's asked for phases it can't find it just won't plot them.
 mult_plots(pixmap_size, PS1_volperc, bio, "C:/Users/Matthew/Desktop/TestFolder/mults")
-#one plot for every phase, using the predefined array (make your own, go to line 13!)
+
+#one plot for every phase, using the predefined array
 mult_plots(pixmap_size, PS1_volperc, PS1all_phases, "C:/Users/Matthew/Desktop/TestFolder/all phases")
+
 #two plots, one of ky + sill, and another of ab + an. Must be a list and must be named. Name will be used as filename.
 mult_plots(pixmap_size, PS1_volperc, list(kySil = c("ky", "sill"), plg = c("ab", "an")), "C:/Users/Matthew/Desktop/TestFolder/sums", scale_min = 0, scale_max = 70, alpha = TRUE)
+
 #multiple plots of each mineral group
 mult_plots(pixmap_size, PS1_volperc, all_groups, "C:/Users/Matthew/Desktop/TestFolder/sums", autoscale = TRUE)
 ```
