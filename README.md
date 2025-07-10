@@ -4,7 +4,7 @@ An R program created alongside Stanley Upton to produce vol% phase maps from The
 Maps are produced without axes as they're intended to supplement a psuedosection. The files should be exactly the same dimensions as a T-D psuedosection, but some slight scaling may be necessary. If you'd like to make them with axes you can adjust that yourself in one_plot in vol_perc_pix.R if you're familiar with using ggplot. The pixmap files don't contain any P/T information, so it will all need manual entering (hence not supporting it already, it would require a lot of parameters being passed!).
 Following the style of pixmaps from T-D, they will give a broad overview of phase vol%. If you want to pick specific values out of the map, consider using the isolines built into T-D. 
 
-# Dependencies
+## Dependencies
 You'll need a copy of R: https://www.r-project.org/ , as well as the dplyr, tidyr, ggplot2, svglite, and colorBlindness libraries:
 
 https://cran.r-project.org/package=dplyr
