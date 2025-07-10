@@ -30,7 +30,7 @@ The user should work wholly within main.R, vol_write.R and vol_perc_pix.R just s
 PS1_aligned <- align_phase_volumes("E:\\2024_MESc_Matthew_Leonard\\pseudosections\\PS1\\_DomMap100\\vol")
 write.csv(PS1_aligned, "PS1_aligned.csv", row.names = FALSE)
 ```
-Edit that code to point to the file location of your vol_ folder, change the variable name to something suitable, and adjust the csv name as needed. A nice side effect of this is you now have a handy csv with all your vol data per phase, that you can import into excel if you wish. Write this out as many times as you have samples.
+  Edit that code to point to the file location of your vol_ folder, change the variable name to something suitable, and adjust the csv name as needed. A nice side effect of this is you now have a handy csv with   all your vol data per phase, that you can import into excel if you wish. Write this out as many times as you have samples.
 
 3. Adjust the next line to then read in the csvs like so:
 
@@ -47,35 +47,34 @@ PS1_column_names <- colnames(PS1_volperc)
 PS1all_phases <- PS1column_names[!grepl("Index|solids|tot|^perc", PS1column_names)]
 ```
 
-They are just setting up a list of every single phase within the sample, which I find extremely handy. The others don't need to be changed, unless you're using a T-D database with some weird phases - you may want to add those to the mineral groups.
+  They are just setting up a list of every single phase within the sample, which I find extremely handy. The others don't need to be changed, unless you're using a T-D database with some weird phases - you may    want to add those to the mineral groups.
 
 6. Included also are some example usages of the program. There are two functions - one_plot and mult_plots which will produce one plot or multiple plots respectively. Comment out or delete these examples before you run it!
 
-##one_plot
+## one_plot
 In the backend, one_plot looks like this:
 ```
 one_plot <- function(pix_dim, df_volperc, phase_array, save_path = NULL, autoscale = FALSE, scale_min = 0, scale_max = 100, alpha = FALSE)
 ```
 The first four parameters are essential, and the rest are optional. Everything passed to one_plot through phase_array will be summed and plotted on one plot! 
-#pix_dim
+### pix_dim
 This should always be input as the pixmap_size variable you defined earlier.
-#df_volperc
+### df_volperc
 Pass this the variable you read your sample csv into earlier in step 3 (yourSample_volperc). In the example code that is PS1_volperc.
-#phase_array
+### phase_array
 Give a single phase name as a string, or an array of phase names as strings (e.g. "ab", or c("ab", "an")). The mineral presets are useful here too, e.g. grt. No quotes, its a variable not a string.
-#save_path
+### save_path
 A string containing the filepath. Be careful with \\ or / here, it will depend on your OS. If you're on mac use /, if on windows use \\ or /. Windows users, when copy pasting a file-path please ensure you change **all** instances of \ to \\ or / (single \ is a special character in R strings). When using one_plot you must include a filename at the end of the filepath, including .svg.
-#autoscale
+### autoscale
 This is a simple TRUE or FALSE variable. If you don't enter a value it will default to FALSE, write autoscale = TRUE to enable it. Enabling autoscale will cause the scale of the plot to be clipped to the minimum and maximum values on the plot which will give the best resolution in the colour scale. I don't recommend using this if you want to compare one phase to another as the scales will be different!
-#scale_min
+### scale_min
 Takes a value to set the minimum point of the scale, with autoscale enabled this value is ignored. By default it is set to 0 (%), write scale_min = X where X = some number less than scale_max.
-#scale_max
+### scale_max
 Takes a value to set the maximum point of the scale, with autoscale enabled this value is ignored. BY default it is set to 100 (%), write scale_max = X where X = some number greater than scale_min.
-#scaleMin and scaleMax will be ignored if autoscale = TRUE
-#alpha
+### alpha
 Enabling alpha will cause 0 values to be set to transparent. By default it is set to FALSE, write alpha = TRUE to enable. I find enabling alpha makes the plots much more readable.
 
-#Examples
+### Examples
 ```
 #just a plot of ab, with a custom scale.
 one_plot(pixmap_size, PS1_volperc, "ab", "C:\\Users\\Matthew\\Desktop\\TestFolder\\ab_plot.svg", scaleMin = 10, scaleMax = 90)
@@ -85,19 +84,19 @@ one_plot(pixmap_size, PS1_volperc, c("ky", "sill"), "C:/Users/Matthew/Desktop/Te
 one_plot(pixmap_size, PS1_volperc, oxides, "C:\\Users\\Matthew\\Desktop\\TestFolder\\oxides_plot.svg", autoscale = TRUE, alpha = TRUE)
 ```
 
-##mult_plot
+## mult_plot
 In the backend, mult_plot just calls one_plot multiple times. This means usage is pretty similar, with some differences in what data you actually hand to it:
 ```
 mult_plots <- function(pix_dim, df_volperc, phase_array, folder_path = NULL, autoscale = FALSE, scale_min = 0, scale_max = 100, alpha = FALSE)
 ```
-#phase_array
+### phase_array
 mult_plots handles this input slightly differently to one_plot. If you pass it an array of phases, e.g. c("ab", "an") it will produce two plots, one of "ab" and one of "an", rather than a plot with the two summed. The phase name is used as the file name for each plot. To create multiple sum plots at once you can pass it a list of arrays, e.g. list(kySil = c("ky", "sill"), plg = c("ab", "an")). It's important a name is attached to them (the "kySil =" bit) as this is how the file name is generated for these sum plots. The yourSample_all_phases defined in step 5 comes in handy here, and can be used to create one plot per phase present in your sample. all_groups is also useful for creating a plot for each mineral, rather than each phase.
-#folder_path
+### folder_path
 As multiple plots are being generated you cannot provide a file name within the path like in one_plot. Please provide **only** the path to the folder you want them saved in, with no filename. How the filenames are generated is described above.
-#scale_min, scale_max, and autoscale
+### scale_min, scale_max, and autoscale
 In mult_plots, the values for scale_min and scale_max will be applied to every single plot. Autoscaling, if enabled, will occur for each plot individually. It's not possible to assign a custom scale on a per plot basis within a single call of mult_plots.
 
-#Examples
+### Examples
 ```
 #two plots, one of an and one of ab
 mult_plots(pixmap_size, PS1_volperc, c("an", "ab"), "C:/Users/Matthew/Desktop/TestFolder/mults", autoscale = TRUE, alpha = TRUE)
