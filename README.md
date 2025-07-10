@@ -4,17 +4,22 @@ An R program created alongside Stanley Upton to produce vol% phase maps from The
 Maps are produced without axes as they're intended to supplement a psuedosection. The files should be exactly the same dimensions as a T-D psuedosection, but some slight scaling may be necessary. If you'd like to make them with axes you can adjust that yourself in one_plot in vol_perc_pix.R if you're familiar with using ggplot. The pixmap files don't contain any P/T information, so it will all need manual entering (hence not supporting it already, it would require a lot of parameters being passed!).
 Following the style of pixmaps from T-D, they will give a broad overview of phase vol%. If you want to pick specific values out of the map, consider using the isolines built into T-D. 
 
-#Dependencies
+# Dependencies
 You'll need a copy of R: https://www.r-project.org/ , as well as the dplyr, tidyr, ggplot2, svglite, and colorBlindness libraries:
+
 https://cran.r-project.org/package=dplyr
+
 https://cran.r-project.org/package=tidyr
+
 https://cran.r-project.org/package=ggplot2
+
 https://cran.r-project.org/package=svglite
+
 https://cran.r-project.org/package=colorBlindness
 
 Tested on R 4.4.3 in PyCharm.
 
-##Use:
+## Use:
 The user should work wholly within main.R, vol_write.R and vol_perc_pix.R just serve to hold functions. Make sure they're all in the same folder when you run it otherwise main won't be able to find the other files!
 
 1. Once your T-D pixmap has been generated copy and paste all of the files beginning with vol_ (e.g. vol_[gr], vol_tot, vol_solids etc.) into a seperate folder. While the program shouldn't accept anything else (currently only vol is accepted but it could easily be modified to do other plots if you like), this just ensures there are no erroneous data going into the plot. To avoid causing problems in T-D it's best to do this outside of the original map folder.
